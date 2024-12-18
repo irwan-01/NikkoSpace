@@ -49,6 +49,7 @@
             <a href="index.jsp">Appointment</a>
             <a href="indexPet.jsp">Pet</a>
             <a href="indexProfile.jsp">Profile</a>
+	    <a href="signup.jsp">sign up</a>
         </nav>
         <div class="icons">
             <a href="indexProfile.jsp"><i></i></a>
