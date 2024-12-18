@@ -56,7 +56,7 @@
     </header>
 
 <div class="container">
-<h2>All Products</h2>
+<h2>All Packages</h2>
       <table border="1">
         <thead>
           <tr>
