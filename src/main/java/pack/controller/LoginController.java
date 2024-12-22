@@ -24,39 +24,41 @@ public class LoginController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Retrieve form data
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // Validate user credentials
-        try (Connection con = AzureSqlDatabaseConnection.getConnection()) {
-            String sql = "SELECT * FROM users WHERE username = ?";
-            try (PreparedStatement ps = con.prepareStatement(sql)) {
-                ps.setString(1, username);
-                ResultSet rs = ps.executeQuery();
+        try (Connection con = AzureSqlDatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE username = ?")) {
 
-                if (rs.next()) {
-                    String storedHashedPassword = rs.getString("password");
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
 
-                    // Compare entered password with stored hashed password
-                    if (BCrypt.checkpw(password, storedHashedPassword)) {
-                        // Successful login
-                        HttpSession session = request.getSession();
-                        session.setAttribute("username", username);
-                        session.setAttribute("userId", rs.getInt("userId"));
-                        response.sendRedirect("index.jsp"); // Redirect to the main page
-                    } else {
-                        // Invalid password
-                        request.setAttribute("errorMessage", "Invalid username or password.");
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-                        dispatcher.forward(request, response);
-                    }
+            if (rs.next()) {
+                String storedHashedPassword = rs.getString("password");
+
+                // Verify the entered password with the stored hash
+                if (BCrypt.checkpw(password, storedHashedPassword)) {
+                    // Login successful
+                    HttpSession session = request.getSession();
+                    session.setAttribute("username", username);
+                    session.setAttribute("userId", rs.getInt("userId"));
+
+                    // Redirect to index.jsp
+                    response.sendRedirect("index.jsp");
                 } else {
-                    // Username not found
+                    // Incorrect password
                     request.setAttribute("errorMessage", "Invalid username or password.");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
                     dispatcher.forward(request, response);
                 }
+            } else {
+                // Username not found
+                request.setAttribute("errorMessage", "Invalid username or password.");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+                dispatcher.forward(request, response);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "An error occurred. Please try again.");
