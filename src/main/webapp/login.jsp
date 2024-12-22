@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="IndexPackageStyle.css">
 </head>
 <body>
-    <div class="login-form">
+    <div class="container">
         <h2>Login</h2>
         <form action="LoginController" method="post">
             <label for="username">Username:</label>
