@@ -29,25 +29,28 @@ public class LoginController extends HttpServlet {
 
         try (Connection con = AzureSqlDatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE username = ?")) {
-
+            
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 String storedHashedPassword = rs.getString("password");
 
+                // Check if the entered password matches the stored hash
                 if (BCrypt.checkpw(password, storedHashedPassword)) {
-                    // Login successful
+                    // Successful login
                     HttpSession session = request.getSession();
                     session.setAttribute("username", username);
                     session.setAttribute("userId", rs.getInt("userId"));
                     response.sendRedirect("index.jsp");
                 } else {
+                    // Incorrect password
                     request.setAttribute("errorMessage", "Invalid username or password.");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
                     dispatcher.forward(request, response);
                 }
             } else {
+                // Username not found
                 request.setAttribute("errorMessage", "Invalid username or password.");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
                 dispatcher.forward(request, response);
@@ -55,7 +58,7 @@ public class LoginController extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
+            request.setAttribute("errorMessage", "An error occurred. Please try again.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
             dispatcher.forward(request, response);
         }
