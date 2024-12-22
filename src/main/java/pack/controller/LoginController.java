@@ -27,35 +27,36 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        try (Connection con = AzureSqlDatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE username = ?")) {
-            
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
+        // Validate user credentials
+        try (Connection con = AzureSqlDatabaseConnection.getConnection()) {
+            String sql = "SELECT * FROM users WHERE username = ?";
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, username);
+                ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                String storedHashedPassword = rs.getString("password");
+                if (rs.next()) {
+                    String storedHashedPassword = rs.getString("password");
 
-                // Check if the entered password matches the stored hash
-                if (BCrypt.checkpw(password, storedHashedPassword)) {
-                    // Successful login
-                    HttpSession session = request.getSession();
-                    session.setAttribute("username", username);
-                    session.setAttribute("userId", rs.getInt("userId"));
-                    response.sendRedirect("index.jsp");
+                    // Compare entered password with stored hashed password
+                    if (BCrypt.checkpw(password, storedHashedPassword)) {
+                        // Successful login
+                        HttpSession session = request.getSession();
+                        session.setAttribute("username", username);
+                        session.setAttribute("userId", rs.getInt("userId"));
+                        response.sendRedirect("index.jsp"); // Redirect to the main page
+                    } else {
+                        // Invalid password
+                        request.setAttribute("errorMessage", "Invalid username or password.");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+                        dispatcher.forward(request, response);
+                    }
                 } else {
-                    // Incorrect password
+                    // Username not found
                     request.setAttribute("errorMessage", "Invalid username or password.");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
                     dispatcher.forward(request, response);
                 }
-            } else {
-                // Username not found
-                request.setAttribute("errorMessage", "Invalid username or password.");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-                dispatcher.forward(request, response);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "An error occurred. Please try again.");
