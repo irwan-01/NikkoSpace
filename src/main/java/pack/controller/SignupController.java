@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import pack.connection.AzureSqlDatabaseConnection;
+import org.mindrot.jbcrypt.BCrypt;
 
 @WebServlet("/SignupController")
 public class SignupController extends HttpServlet {
@@ -33,6 +34,9 @@ public class SignupController extends HttpServlet {
             dispatcher.forward(request, response);
             return;
         }
+
+        //Hash the password using BCrypt
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
         // Insert user into the database
         try (Connection con = AzureSqlDatabaseConnection.getConnection();
