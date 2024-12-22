@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="IndexPackageStyle.css">
 </head>
 <body>
-    <div class="container">
+    <div class="login-form">
         <h2>Login</h2>
-        <form action="LoginController" method="POST">
+        <form action="LoginController" method="post">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             <label for="password">Password:</label>
@@ -17,9 +17,9 @@
             <button type="submit">Login</button>
         </form>
         <p>Don't have an account? <a href="signup.jsp">Signup here</a></p>
-        <% if (request.getAttribute("errorMessage") != null) { %>
-            <p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
-        <% } %>
+        <c:if test="${not empty errorMessage}">
+            <p style="color: red;">${errorMessage}</p>
+        </c:if>
     </div>
 </body>
 </html>
