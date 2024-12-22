@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="IndexPackageStyle.css">
 </head>
 <body>
-    <div class="container">
+    <div class="signup-form">
         <h2>Signup</h2>
-        <form action="SignupController" method="POST">
+        <form action="SignupController" method="post">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             <label for="email">Email:</label>
@@ -19,6 +19,9 @@
             <button type="submit">Signup</button>
         </form>
         <p>Already have an account? <a href="login.jsp">Login here</a></p>
+        <c:if test="${not empty errorMessage}">
+            <p style="color: red;">${errorMessage}</p>
+        </c:if>
     </div>
 </body>
 </html>
