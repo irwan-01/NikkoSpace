@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import pack.connection.AzureSqlDatabaseConnection;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -29,31 +28,20 @@ public class LoginController extends HttpServlet {
         String password = request.getParameter("password");
 
         try (Connection con = AzureSqlDatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE username = ?")) {
-
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?")) {
+            
             ps.setString(1, username);
+            ps.setString(2, password); // Consider hashing passwords for security
+
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
-                String storedHashedPassword = rs.getString("password");
-
-                // Verify the entered password with the stored hash
-                if (BCrypt.checkpw(password, storedHashedPassword)) {
-                    // Login successful
-                    HttpSession session = request.getSession();
-                    session.setAttribute("username", username);
-                    session.setAttribute("userId", rs.getInt("userId"));
-
-                    // Redirect to index.jsp
-                    response.sendRedirect("index.jsp");
-                } else {
-                    // Incorrect password
-                    request.setAttribute("errorMessage", "Invalid username or password.");
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-                    dispatcher.forward(request, response);
-                }
+                // Login successful
+                HttpSession session = request.getSession();
+                session.setAttribute("username", username);
+                session.setAttribute("userId", rs.getInt("userId"));
+                response.sendRedirect("index.jsp");
             } else {
-                // Username not found
+                // Login failed
                 request.setAttribute("errorMessage", "Invalid username or password.");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
                 dispatcher.forward(request, response);
