@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="IndexPackageStyle.css">
 </head>
 <body>
-    <div class="signup-form">
+    <div class="container">
         <h2>Signup</h2>
         <form action="SignupController" method="post">
             <label for="username">Username:</label>
