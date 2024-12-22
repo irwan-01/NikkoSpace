@@ -24,7 +24,6 @@ public class LoginController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve form data
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
@@ -37,7 +36,6 @@ public class LoginController extends HttpServlet {
             if (rs.next()) {
                 String storedHashedPassword = rs.getString("password");
 
-                // Verify the entered password with the stored hash
                 if (BCrypt.checkpw(password, storedHashedPassword)) {
                     // Login successful
                     HttpSession session = request.getSession();
@@ -45,13 +43,11 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("userId", rs.getInt("userId"));
                     response.sendRedirect("index.jsp");
                 } else {
-                    // Incorrect password
                     request.setAttribute("errorMessage", "Invalid username or password.");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
                     dispatcher.forward(request, response);
                 }
             } else {
-                // Username not found
                 request.setAttribute("errorMessage", "Invalid username or password.");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
                 dispatcher.forward(request, response);
@@ -59,7 +55,7 @@ public class LoginController extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "An error occurred. Please try again.");
+            request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
             dispatcher.forward(request, response);
         }
