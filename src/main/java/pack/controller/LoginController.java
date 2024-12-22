@@ -38,7 +38,7 @@ public class LoginController extends HttpServlet {
                 String storedHashedPassword = rs.getString("password");
 
                 // Verify the entered password with the stored hash
-                if (BCrypt.checkpw(plainPassword, storedHashedPassword)) {
+                if (BCrypt.checkpw(password, storedHashedPassword)) {
                 // Login successful
                 HttpSession session = request.getSession();
                 session.setAttribute("username", username);
