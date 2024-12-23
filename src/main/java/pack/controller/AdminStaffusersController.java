@@ -30,6 +30,7 @@ public class AdminStaffusersController extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         String birthDate = request.getParameter("birthDate");
         String gender = request.getParameter("gender");
+        String adminId = request.getParameter("adminId");
 
         if (!password.equals(confirmPassword)) {
             // Passwords do not match
@@ -43,7 +44,7 @@ public class AdminStaffusersController extends HttpServlet {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
         try (Connection con = AzureSqlDatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("INSERT INTO AdminStaffusers (username, password, email, phoneNumber, birthDate, gender) VALUES (?, ?, ?, ?, ?, ?)")) {
+             PreparedStatement ps = con.prepareStatement("INSERT INTO staff (username, password, email, phoneNumber, birthDate, gender, adminId) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
             
             ps.setString(1, username);
             ps.setString(2, password);
@@ -51,6 +52,11 @@ public class AdminStaffusersController extends HttpServlet {
             ps.setString(4, phoneNumber);
             ps.setDate(5, java.sql.Date.valueOf(birthDate)); // Convert to SQL Date
             ps.setString(6, gender);
+            if (adminId != null && !adminId.isEmpty()) {
+                ps.setInt(7, Integer.parseInt(adminId));
+            } else {
+                ps.setNull(7, java.sql.Types.INTEGER); 
+            }
             
             int result = ps.executeUpdate();
             if (result > 0) {
