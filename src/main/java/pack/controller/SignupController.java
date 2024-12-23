@@ -26,6 +26,7 @@ public class SignupController extends HttpServlet {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
 
         // Validate inputs (add more validations if necessary)
         if (username == null || email == null || password == null || username.isEmpty() || email.isEmpty() || password.isEmpty()) {
