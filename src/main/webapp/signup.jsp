@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="IndexPackageStyle.css">
     <script>
         function validatePasswords() {
-            var password = document.getElementById("password").value;
-            var confirmPassword = document.getElementById("confirmPassword").value;
+            var password = document.getElementById("password").value.trim;
+            var confirmPassword = document.getElementById("confirmPassword").value.trim;
             if (password !== confirmPassword) {
                 alert("Passwords do not match!");
                 return false;
