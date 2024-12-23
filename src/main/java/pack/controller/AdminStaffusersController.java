@@ -69,8 +69,8 @@ public class AdminStaffusersController extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "An error occurred. Please try again.");
+                e.printStackTrace(); 
+                request.setAttribute("errorMessage", "An error occurred. Please try again.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffsignup.jsp");
             dispatcher.forward(request, response);
         }
