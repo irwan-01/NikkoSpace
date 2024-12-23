@@ -36,7 +36,7 @@ public class AdminStaffusersController extends HttpServlet {
         if (!password.equals(confirmPassword)) {
             // Passwords do not match
             request.setAttribute("errorMessage", "Passwords do not match!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffusers.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffsignup.jsp");
             dispatcher.forward(request, response);
             return;
         }
@@ -66,18 +66,18 @@ public class AdminStaffusersController extends HttpServlet {
             } else {
                 // Signup failed
                 request.setAttribute("errorMessage", "An error occurred during signup. Please try again.");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffusers.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffsignup.jsp");
                 dispatcher.forward(request, response);
             }
         } catch (SQLException e) { // Catch SQLException specifically
             e.printStackTrace();
             request.setAttribute("errorMessage", "An error occurred. Please try again.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffusers.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffsignup.jsp");
             dispatcher.forward(request, response);
         } catch (Exception e) { // Catch other exceptions
             e.printStackTrace();
             request.setAttribute("errorMessage", "An unexpected error occurred. Please try again.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffusers.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffsignup.jsp");
             dispatcher.forward(request, response);
         }
     }
