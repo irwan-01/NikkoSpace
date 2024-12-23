@@ -4,11 +4,11 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Signup</title>
-    <link rel="stylesheet" href="IndexPackageStyle.css">
+    <link rel="stylesheet" href="IndexPackageStyle.css"> 
     <script>
         function validatePasswords() {
-            var password = document.getElementById("password").value.trim;
-            var confirmPassword = document.getElementById("confirmPassword").value.trim;
+            var password = document.getElementById("password").value.trim();
+            var confirmPassword = document.getElementById("confirmPassword").value.trim();
             if (password !== confirmPassword) {
                 alert("Passwords do not match!");
                 return false;
@@ -20,7 +20,8 @@
 <body>
     <div class="container">
         <h2>Signup</h2>
-        <form action="AdminStaffusersController" method="post" onsubmit="return validatePasswords();>
+
+        <form action="AdminStaffusersController" method="post" onsubmit="return validatePasswords();"> 
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             <label for="email">Email:</label>
@@ -35,18 +36,18 @@
             <input type="date" id="birthDate" name="birthDate" required><br>
             <label for="gender">Gender:</label>
             <select id="gender" name="gender" required>
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
             </select><br>
             <label for="adminId">Admin ID:</label> 
-            <input type="number" id="adminId" name="adminId"><br>
+            <input type="number" id="adminId" name="adminId"><br> 
             <button type="submit">Signup</button>
         </form>
         <p>Already have an account? <a href="login.jsp">Login here</a></p>
-        <c:if test="${not empty errorMessage}">
-            <p style="color: red;">${errorMessage}</p>
+        <c:if test="${not empty errorMessage}"> 
+            <p style="color: red;">${errorMessage}</p> 
         </c:if>
     </div>
 </body>
