@@ -27,9 +27,6 @@ public class SignupController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
-        String phoneNum = request.getParameter("phoneNum");
-        String birthDate = request.getParameter("birthDate");
-        String gender = request.getParameter("gender");
         
 
         if (!password.equals(confirmPassword)) {
@@ -44,14 +41,11 @@ public class SignupController extends HttpServlet {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
         try (Connection con = AzureSqlDatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("INSERT INTO users (username, password, email, phone_number, birth_date, gender) VALUES (?, ?, ?)")) {
+             PreparedStatement ps = con.prepareStatement("INSERT INTO users (username, password, email) VALUES (?, ?, ?)")) {
             
             ps.setString(1, username);
             ps.setString(2, password);
             ps.setString(3, email);
-            ps.setString(4, phone_number);
-            ps.setString(5, birth_date);
-            ps.setString(6, gender);
             
             int result = ps.executeUpdate();
             if (result > 0) {
