@@ -35,6 +35,14 @@ public class SignupController extends HttpServlet {
             return;
         }
 
+        if (!password.equals(confirmPassword)) {
+            // Passwords do not match
+            request.setAttribute("errorMessage", "Passwords do not match!");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
         //Hash the password using BCrypt
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
