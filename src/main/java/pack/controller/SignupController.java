@@ -28,17 +28,18 @@ public class SignupController extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
-        // Validate inputs (add more validations if necessary)
-        if (username == null || email == null || password == null || username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            request.setAttribute("message", "All fields are required!");
+        // Check if passwords match
+        if (!password.equals(confirmPassword)) {
+            // Passwords do not match
+            request.setAttribute("errorMessage", "Passwords do not match!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
             dispatcher.forward(request, response);
             return;
         }
 
-        if (!password.equals(confirmPassword)) {
-            // Passwords do not match
-            request.setAttribute("errorMessage", "Passwords do not match!");
+        // Validate inputs (add more validations if necessary)
+        if (username == null || email == null || password == null || username.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            request.setAttribute("message", "All fields are required!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
             dispatcher.forward(request, response);
             return;
