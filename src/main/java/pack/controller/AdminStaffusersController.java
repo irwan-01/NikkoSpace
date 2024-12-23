@@ -30,7 +30,7 @@ public class AdminStaffusersController extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         String birthDate = request.getParameter("birthDate");
         String gender = request.getParameter("gender");
-        String adminId = request.getParameter("adminId");
+        String adminId = request.getParameter("adminId"); // Get adminId from the form
 
         if (!password.equals(confirmPassword)) {
             // Passwords do not match
@@ -40,14 +40,14 @@ public class AdminStaffusersController extends HttpServlet {
             return;
         }
 
-       // Hash the password
+        // Hash the password
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
         try (Connection con = AzureSqlDatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement("INSERT INTO staff (username, password, email, phoneNumber, birthDate, gender, adminId) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
-            
+
             ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(2, hashedPassword); // Use the hashed password
             ps.setString(3, email);
             ps.setString(4, phoneNumber);
             ps.setDate(5, java.sql.Date.valueOf(birthDate)); // Convert to SQL Date
@@ -55,13 +55,13 @@ public class AdminStaffusersController extends HttpServlet {
             if (adminId != null && !adminId.isEmpty()) {
                 ps.setInt(7, Integer.parseInt(adminId));
             } else {
-                ps.setNull(7, java.sql.Types.INTEGER); 
-            }
-            
+                ps.setNull(7, java.sql.Types.INTEGER); // Set to NULL if no adminId is provided
+            }
+
             int result = ps.executeUpdate();
             if (result > 0) {
                 // Signup successful
-                response.sendRedirect("login.jsp");
+                response.sendRedirect("login.jsp"); 
             } else {
                 // Signup failed
                 request.setAttribute("errorMessage", "An error occurred during signup. Please try again.");
@@ -73,6 +73,6 @@ public class AdminStaffusersController extends HttpServlet {
             request.setAttribute("errorMessage", "An error occurred. Please try again.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffsignup.jsp");
             dispatcher.forward(request, response);
-        }
-    }
+        }
+    }
 }
