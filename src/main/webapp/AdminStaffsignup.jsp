@@ -46,9 +46,7 @@
             <button type="submit">Signup</button>
         </form>
         <p>Already have an account? <a href="login.jsp">Login here</a></p>
-        <c:if test="${not empty errorMessage}"> 
-            <p style="color: red;">${errorMessage}</p> 
-        </c:if>
+        
     </div>
 </body>
 </html>
