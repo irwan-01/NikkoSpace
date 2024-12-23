@@ -20,7 +20,7 @@
 <body>
     <div class="container">
         <h2>Signup</h2>
-        <form action="SignupController" method="post">
+        <form action="SignupController" method="post" onsubmit="return validatePasswords();>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             <label for="email">Email:</label>
@@ -28,7 +28,7 @@
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
             <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" required><br>
+            <input type="password" id="confirmPassword" name="confirmPassword" required><br>
             <button type="submit">Signup</button>
         </form>
         <p>Already have an account? <a href="login.jsp">Login here</a></p>
