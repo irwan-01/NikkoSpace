@@ -13,11 +13,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-@WebServlet("/SignupController")
-public class SignupController extends HttpServlet {
+@WebServlet("/AdminStaffusersController")
+public class AdminStaffusersController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public SignupController() {
+    public AdminStaffusersController() {
         super();
     }
 
@@ -34,7 +34,7 @@ public class SignupController extends HttpServlet {
         if (!password.equals(confirmPassword)) {
             // Passwords do not match
             request.setAttribute("errorMessage", "Passwords do not match!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffusers.jsp");
             dispatcher.forward(request, response);
             return;
         }
@@ -59,13 +59,13 @@ public class SignupController extends HttpServlet {
             } else {
                 // Signup failed
                 request.setAttribute("errorMessage", "An error occurred during signup. Please try again.");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffusers.jsp");
                 dispatcher.forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "An error occurred. Please try again.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffusers.jsp");
             dispatcher.forward(request, response);
         }
     }
