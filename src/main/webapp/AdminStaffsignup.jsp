@@ -20,7 +20,6 @@
 <body>
     <div class="container">
         <h2>Signup</h2>
-        
         <form action="AdminStaffusersController" method="post" onsubmit="return validatePasswords();>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
