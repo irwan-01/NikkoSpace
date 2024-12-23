@@ -5,23 +5,12 @@
     <meta charset="ISO-8859-1">
     <title>Signup</title>
     <link rel="stylesheet" href="IndexPackageStyle.css"> 
-    <script>
-        function validatePasswords() {
-            var password = document.getElementById("password").value.trim();
-            var confirmPassword = document.getElementById("confirmPassword").value.trim();
-            if (password !== confirmPassword) {
-                alert("Passwords do not match!");
-                return false;
-            }
-            return true;
-        }
-    </script>
 </head>
 <body>
     <div class="container">
         <h2>Signup</h2>
 
-        <form action="AdminStaffusersController" method="post" onsubmit="return validatePasswords();"> 
+        <form action="AdminStaffusersController" method="post"> 
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             <label for="email">Email:</label>
