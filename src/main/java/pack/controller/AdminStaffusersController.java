@@ -52,7 +52,19 @@ public class AdminStaffusersController extends HttpServlet {
             ps.setString(4, phoneNumber);
             ps.setDate(5, java.sql.Date.valueOf(birthDate)); // Convert to SQL Date
             ps.setString(6, gender);
-            ps.setInt(7, Integer.parseInt(adminId));
+            // Handle adminId
+            if (adminId != null && !adminId.isEmpty()) {
+                try {
+                    ps.setInt(7, Integer.parseInt(adminId));
+                } catch (NumberFormatException e) {
+                    request.setAttribute("errorMessage", "Invalid Admin ID. It must be a number.");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("AdminStaffsignup.jsp");
+                    dispatcher.forward(request, response);
+                    return;
+                }
+            } else {
+                ps.setNull(7, java.sql.Types.INTEGER);
+            }
 
             int result = ps.executeUpdate();
             if (result > 0) {
