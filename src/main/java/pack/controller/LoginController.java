@@ -40,6 +40,9 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("username", username);
                 session.setAttribute("userId", rs.getInt("userId"));
                 response.sendRedirect("index.jsp");
+                HttpSession session = request.getSession();
+                session.setAttribute("userId", rs.getInt("userId"));
+                response.sendRedirect("ProfileController");
             } else {
                 // Login failed
                 request.setAttribute("errorMessage", "Invalid username or password.");
