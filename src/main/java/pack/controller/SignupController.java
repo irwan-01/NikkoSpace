@@ -56,6 +56,9 @@ public class SignupController extends HttpServlet {
             if (result > 0) {
                 // Signup successful
                 response.sendRedirect("login.jsp");
+                HttpSession session = request.getSession();
+                session.setAttribute("userId", userId); // Get userId using a SELECT query for the newly created user
+                response.sendRedirect("ProfileController");
             } else {
                 // Signup failed
                 request.setAttribute("errorMessage", "An error occurred during signup. Please try again.");
