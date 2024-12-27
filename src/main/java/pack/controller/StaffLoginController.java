@@ -26,6 +26,14 @@ public class StaffLoginController extends HttpServlet {
         // Retrieve staffId from the form
         String staffId = request.getParameter("staffId");
 
+        if (!password.equals(confirmPassword)) {
+            // Passwords do not match
+            request.setAttribute("errorMessage", "Passwords do not match!");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("staffLogin.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
         try (Connection con = AzureSqlDatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement("SELECT * FROM staff WHERE staffId = ?")) {
 
