@@ -44,14 +44,14 @@ public class LoginAdmin extends HttpServlet {
             } else {
                 // Login failed
                 request.setAttribute("errorMessage", "Invalid username or password.");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("loginAdmin.jsp");
                 dispatcher.forward(request, response);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "An error occurred. Please try again.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("loginAdmin.jsp");
             dispatcher.forward(request, response);
         }
     }
