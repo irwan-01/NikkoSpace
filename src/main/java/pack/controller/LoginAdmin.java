@@ -40,7 +40,7 @@ public class LoginAdmin extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("username", username);
                 session.setAttribute("userId", rs.getInt("userId"));
-                response.sendRedirect("ProfileController");
+                response.sendRedirect("ProfileAdmin");
             } else {
                 // Login failed
                 request.setAttribute("errorMessage", "Invalid username or password.");
