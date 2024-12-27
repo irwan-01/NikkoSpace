@@ -40,7 +40,7 @@ public class StaffCreateController extends HttpServlet {
              PreparedStatement ps = con.prepareStatement(
                      "INSERT INTO staff (username, password, email, phoneNumber, birthDate, gender, adminId) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
             ps.setString(1, username);
-            ps.setString(2, hashedPassword);
+            ps.setString(2, password);
             ps.setString(3, email);
             ps.setString(4, phoneNumber);
             ps.setDate(5, java.sql.Date.valueOf(birthDate));
