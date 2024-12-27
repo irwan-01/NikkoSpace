@@ -20,7 +20,7 @@
 <body>
     <div class="container">
         <h2>Staff Login</h2>
-        <form action="StaffLoginController" method="POST">
+        <form action="StaffLoginController" method="post">
             <label for="staffId">Staff ID:</label>
             <input type="text" id="staffId" name="staffId" required>
             <label for="username">Username:</label>
@@ -40,7 +40,7 @@
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
-            <button type="submit">Login</button>
+            <button type="submit">Signup</button>
         </form>
         <% if (request.getAttribute("errorMessage") != null) { %>
             <p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
