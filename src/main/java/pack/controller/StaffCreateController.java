@@ -6,32 +6,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import pack.connection.AzureSqlDatabaseConnection;
 import org.mindrot.jbcrypt.BCrypt;
+import pack.connection.AzureSqlDatabaseConnection;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
-@WebServlet("/CreateStaffController")
-public class CreateStaffController extends HttpServlet {
+@WebServlet("/StaffCreateController")
+public class StaffCreateController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-
-        if ("create".equals(action)) {
-            createStaff(request, response);
-        } else if ("view".equals(action)) {
-            viewStaffProfile(request, response);
-        } else if ("update".equals(action)) {
-            updateStaffProfile(request, response);
-        }
-    }
-
-    private void createStaff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -43,7 +29,7 @@ public class CreateStaffController extends HttpServlet {
 
         if (!password.equals(confirmPassword)) {
             request.setAttribute("errorMessage", "Passwords do not match!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("staff_signup.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("staff_create.jsp");
             dispatcher.forward(request, response);
             return;
         }
@@ -66,13 +52,13 @@ public class CreateStaffController extends HttpServlet {
                 response.sendRedirect("login.jsp");
             } else {
                 request.setAttribute("errorMessage", "Failed to create staff. Try again.");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("staff_signup.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("staff_create.jsp");
                 dispatcher.forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "An error occurred. Please try again.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("staff_signup.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("staff_create.jsp");
             dispatcher.forward(request, response);
         }
     }
