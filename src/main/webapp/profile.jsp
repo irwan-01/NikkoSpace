@@ -34,9 +34,7 @@
             </tr>
         </table>
         
-        <form action="LogoutController" method="post">
-            <button type="submit">Logout</button>
-        </form>
+        <a href="Logout.jsp">Logout</a>
     </div>
 </body>
 </html>
