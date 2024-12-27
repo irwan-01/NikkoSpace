@@ -18,7 +18,7 @@
         </form>
 
         
-        <p>Don't have an account? <a href="signup.jsp">Signup here</a></p>
+        <p>Don't have an account? <a href="staff_create.jsp">Signup here</a></p>
         
         <% if (request.getAttribute("errorMessage") != null) { %>
             <p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
