@@ -25,6 +25,13 @@ public class StaffLoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve staffId from the form
         String staffId = request.getParameter("staffId");
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String birthDate = request.getParameter("birthDate");
+        String gender = request.getParameter("gender");
 
         if (!password.equals(confirmPassword)) {
             // Passwords do not match
