@@ -41,8 +41,6 @@
             <option value="Female">Female</option>
             <option value="Other">Other</option>
             </select><br>
-            <label for="adminId">Admin ID:</label>
-            <input type="text" id="adminId" name="adminId" required>
             <button type="submit">Signup</button>
         </form>
         <p>Already have an account? <a href="login.jsp">Login here</a></p>
