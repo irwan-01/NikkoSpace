@@ -15,11 +15,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@WebServlet("/LoginController")
-public class LoginController extends HttpServlet {
+@WebServlet("/adminLogin")
+public class adminLogin extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public LoginController() {
+    public adminLogin() {
         super();
     }
 
