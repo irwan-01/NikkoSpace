@@ -42,7 +42,7 @@ public class SignupController extends HttpServlet {
 
        // Hash the password
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-
+        String userId = null;
         try (Connection con = AzureSqlDatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement("INSERT INTO users (username, password, email, phoneNumber, birthDate, gender) VALUES (?, ?, ?, ?, ?, ?)")) {
             
