@@ -27,7 +27,7 @@ public class LoginController extends HttpServlet {
         // Retrieve form data
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
+        String userId = null;
         try (Connection con = AzureSqlDatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?")) {
             
