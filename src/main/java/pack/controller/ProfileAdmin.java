@@ -27,7 +27,7 @@ public class ProfileAdmin extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("userId") == null) {
             // Redirect to login if the user is not logged in
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("loginAdmin.jsp");
             return;
         }
 
