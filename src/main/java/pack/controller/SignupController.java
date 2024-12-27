@@ -56,7 +56,6 @@ public class SignupController extends HttpServlet {
             int result = ps.executeUpdate();
             if (result > 0) {
                 // Signup successful
-                response.sendRedirect("login.jsp");
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", userId); // Get userId using a SELECT query for the newly created user
                 response.sendRedirect("ProfileController");
