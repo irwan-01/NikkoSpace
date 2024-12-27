@@ -49,7 +49,7 @@ public class ProfileAdmin extends HttpServlet {
                 }
             }
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("adminProfile.jsp");
             dispatcher.forward(request, response);
 
         } catch (Exception e) {
