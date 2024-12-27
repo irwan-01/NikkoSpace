@@ -20,7 +20,7 @@
 <body>
     <div class="container">
         <h2>Signup</h2>
-        <p>Staff/Admin <a href="AdminStaffsignup.jsp">Signup here</a></p>
+        
         <form action="StaffCreateController" method="POST" onsubmit="return validatePasswords();>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
@@ -42,6 +42,8 @@
             <option value="Other">Other</option>
             </select><br>
             <button type="submit">Signup</button>
+            <label for="adminId">Admin ID:</label>
+            <input type="text" id="adminId" name="adminId" required>
         </form>
         <p>Already have an account? <a href="login.jsp">Login here</a></p>
         <c:if test="${not empty errorMessage}">
