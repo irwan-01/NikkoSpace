@@ -33,7 +33,7 @@
                 <td><%= request.getAttribute("gender") %></td>
             </tr>
         </table>
-        
+        <a href="updateProfile.jsp">Update Profile</a>
         <a href="Logout.jsp">Logout</a>
     </div>
 </body>
