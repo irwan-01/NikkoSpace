@@ -6,16 +6,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import pack.connection.AzureSqlDatabaseConnection;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
-
-/**
- * Servlet implementation class editPetController
- */
+@WebServlet("/UpdateProfileController")
 public class UpdateProfileController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -23,85 +22,83 @@ public class UpdateProfileController extends HttpServlet {
         super();
     }
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
+    // Display the user's current profile information in the form for editing
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userId = request.getParameter("userId");
-
-        if (userId != null) {
-            try {
-                int id = Integer.parseInt(userId);
-
-                // Retrieve connection using ConnectionManager
-                Connection con = pack.connection.AzureSqlDatabaseConnection.getConnection();
-
-                // SQL query to fetch pet details by ID
-                String sql = "SELECT * FROM users WHERE userId = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-
-                if (rs.next()) {
-                    Profile profile = new Profile(
-                        rs.getInt("userId"),
-                        rs.getString("username"),
-                        rs.getString("email")  // Use float as petWeight is of type FLOAT in SQL
-                    );
-                    // Set the pet data as an attribute
-                    request.setAttribute("profile", profile);
-                }
-
-                con.close();
-
-            } catch (NumberFormatException e) {
-                System.out.println("Error: Invalid user ID format.");
-            } catch (SQLException e) {
-                System.out.println("Error retrieving user: " + e.getMessage());
-            }
-        } else {
-            System.out.println("Error: No user ID provided.");
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("userId") == null) {
+            // Redirect to login if the user is not logged in
+            response.sendRedirect("login.jsp");
+            return;
         }
 
-        // Forward the request to the updateProfile.jsp page for editing
-        RequestDispatcher req = request.getRequestDispatcher("updateProfile.jsp");
-        req.forward(request, response);
+        int userId = (int) session.getAttribute("userId");
+
+        try (Connection con = AzureSqlDatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE userId = ?")) {
+
+            ps.setInt(1, userId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    request.setAttribute("userId", userId);
+                    request.setAttribute("username", rs.getString("username"));
+                    request.setAttribute("email", rs.getString("email"));
+                    request.setAttribute("phoneNumber", rs.getString("phoneNumber"));
+                    request.setAttribute("birthDate", rs.getDate("birthDate"));
+                    request.setAttribute("gender", rs.getString("gender"));
+                }
+            }
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("updateProfile.jsp");
+            dispatcher.forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("error.jsp");
+        }
     }
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
+    // Handle updating the profile information
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String id = request.getParameter("id");
-
-        if (id != null) {
-            try {
-                int userId = Integer.parseInt(id);
-                String username = request.getParameter("username");
-                String email = request.getParameter("email");
-
-                Connection con = pack.connection.AzureSqlDatabaseConnection.getConnection();
-
-                // Corrected SQL query (changed "id" to "packageId")
-                String sql = "UPDATE users SET username = ?, email = ? WHERE userId = ?"; 
-
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, username);
-                ps.setString(2, email);
-                ps.setInt(3, userId); 
-                ps.executeUpdate();
-                con.close();
-
-            } catch (NumberFormatException e) {
-                System.out.println("Error: Invalid user ID or price format.");
-            } catch (SQLException e) {
-                System.out.println("Error updating profile: " + e.getMessage());
-            }
-        } else {
-            System.out.println("Error: No user ID provided.");
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("userId") == null) {
+            // Redirect to login if the user is not logged in
+            response.sendRedirect("login.jsp");
+            return;
         }
 
-        RequestDispatcher req = request.getRequestDispatcher("profile.jsp"); 
-        req.forward(request, response);
+        int userId = (int) session.getAttribute("userId");
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String birthDate = request.getParameter("birthDate");
+        String gender = request.getParameter("gender");
+
+        try (Connection con = AzureSqlDatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("UPDATE users SET username = ?, email = ?, phoneNumber = ?, birthDate = ?, gender = ? WHERE userId = ?")) {
+
+            ps.setString(1, username);
+            ps.setString(2, email);
+            ps.setString(3, phoneNumber);
+            ps.setString(4, birthDate);
+            ps.setString(5, gender);
+            ps.setInt(6, userId);
+
+            int rowsUpdated = ps.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                response.sendRedirect("profile.jsp");  // Redirect to the profile page after successful update
+            } else {
+                request.setAttribute("error", "Failed to update profile");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("updateProfile.jsp");
+                dispatcher.forward(request, response);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("error.jsp");
+        }
     }
 }
