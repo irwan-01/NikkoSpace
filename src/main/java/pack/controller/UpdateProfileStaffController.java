@@ -68,11 +68,11 @@ public class UpdateProfileStaffController extends HttpServlet {
         }
 
         int staffId = (int) session.getAttribute("staffId");
-        String staffName = request.getParameter("username");
+        String username = request.getParameter("username");
         String email = request.getParameter("email");
         String phoneNumber = request.getParameter("phoneNumber");
-        String position = request.getParameter("birthDate");
-        String department = request.getParameter("gender");
+        String birthDate = request.getParameter("birthDate");
+        String gender = request.getParameter("gender");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
