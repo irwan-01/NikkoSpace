@@ -8,7 +8,7 @@ public class AzureSqlDatabaseConnection {
 
     // Database credentials
     private static final String DB_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static final String DB_CONNECTION = "jdbc:sqlserver://nikkospace.database.windows.net:1433;database=nikkospace;user=nikko@nikkospace;password=Muhammadyazid01!;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+    private static final String DB_CONNECTION = "jdbc:sqlserver://nikkospace.database.windows.net:1433;database=Nikko Space;user=nikko@nikkospace;password=Muhammadyazid01;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
     private static final String DB_USER = "nikko@nikkospace"; 
     private static final String DB_PASSWORD = "Muhammadyazid01!";
 
