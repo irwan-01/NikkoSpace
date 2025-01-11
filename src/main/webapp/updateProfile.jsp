@@ -43,6 +43,16 @@
             </div>
             
             <div>
+                <label for="password">New Password:</label>
+                <input type="password" name="password" id="password" placeholder="Enter new password" />
+            </div>
+            
+            <div>
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm new password" />
+            </div>
+            
+            <div>
                 <button type="submit">Update Profile</button>
             </div>
         </form>
