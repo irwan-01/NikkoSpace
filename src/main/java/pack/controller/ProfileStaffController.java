@@ -40,12 +40,12 @@ public class ProfileStaffController extends HttpServlet {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    request.setAttribute("staffName", rs.getString("staffName"));
+                    request.setAttribute("username", rs.getString("username"));
                     request.setAttribute("email", rs.getString("email"));
                     request.setAttribute("phoneNumber", rs.getString("phoneNumber"));
-                    request.setAttribute("position", rs.getString("position"));
-                    request.setAttribute("department", rs.getString("department"));
-                    request.setAttribute("hireDate", rs.getDate("hireDate"));
+                    request.setAttribute("birthDate", rs.getString("birthDate"));
+                    request.setAttribute("gender", rs.getString("gender"));
+                    
                 } else {
                     response.sendRedirect("error.jsp");
                     return;
