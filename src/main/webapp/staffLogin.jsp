@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>Staff Login</h2>
+        <h2>Login Staff</h2>
         <form action="StaffLoginController" method="POST">
             <label for="staffId">Staff ID:</label>
             <input type="text" id="staffId" name="staffId" required>
