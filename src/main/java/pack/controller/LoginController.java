@@ -35,7 +35,7 @@ public class LoginController extends HttpServlet {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    int userId = rs.getInt("user_id"); // Changed userId to user_id
+                    int user_id = rs.getInt("user_id"); // Changed userId to user_id
                     HttpSession session = request.getSession();
                     session.setAttribute("username", username);
                     session.setAttribute("user_id", user_id);
