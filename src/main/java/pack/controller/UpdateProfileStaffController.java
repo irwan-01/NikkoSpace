@@ -72,24 +72,39 @@ public class UpdateProfileStaffController extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         String position = request.getParameter("birthDate");
         String department = request.getParameter("gender");
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
 
+        // Check if passwords match
+    if (password != null && !password.isEmpty() && !password.equals(confirmPassword)) {
+        request.setAttribute("error", "Passwords do not match.");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("updateProfile.jsp");
+        dispatcher.forward(request, response);
+        return;
+    }
         try (Connection con = AzureSqlDatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("UPDATE staff SET staffName = ?, email = ?, phoneNumber = ?, position = ?, department = ? WHERE staffId = ?")) {
+             PreparedStatement ps = con.prepareStatement("UPDATE staff SET username = ?, email = ?, phoneNumber = ?, position = ?, department = ? WHERE staffId = ?")) {
 
             ps.setString(1, username);
             ps.setString(2, email);
             ps.setString(3, phoneNumber);
             ps.setString(4, birthDate);
             ps.setString(5, gender);
-            ps.setInt(6, staffId);
+            
+
+            int paramIndex = 6;
+            if (password != null && !password.isEmpty()) {
+                ps.setString(paramIndex++, password); // Assuming passwords are stored in plain text (not recommended)
+            }
+            ps.setInt(paramIndex, staffId);
 
             int rowsUpdated = ps.executeUpdate();
 
             if (rowsUpdated > 0) {
-                response.sendRedirect("profileStaff.jsp"); // Redirect after successful update
+                response.sendRedirect("profile.jsp"); // Redirect to the profile page after successful update
             } else {
                 request.setAttribute("error", "Failed to update profile");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("updateProfileStaff.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("updateProfile.jsp");
                 dispatcher.forward(request, response);
             }
 
@@ -98,4 +113,5 @@ public class UpdateProfileStaffController extends HttpServlet {
             response.sendRedirect("error.jsp");
         }
     }
+
 }
