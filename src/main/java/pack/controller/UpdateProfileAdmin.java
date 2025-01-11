@@ -65,10 +65,7 @@ public class UpdateProfileAdmin extends HttpServlet {
 
         int userId = (int) session.getAttribute("userId");
         String username = request.getParameter("username");
-        String email = request.getParameter("email");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String birthDate = request.getParameter("birthDate");
-        String gender = request.getParameter("gender");
+        
         String currentPassword = request.getParameter("currentPassword");
         String newPassword = request.getParameter("newPassword");
         String confirmPassword = request.getParameter("confirmPassword");
