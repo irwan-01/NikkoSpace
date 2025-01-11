@@ -20,7 +20,7 @@
 <body>
     <div class="container">
         <h2>Signup</h2>
-        <p>Admin <a href="staff_create.jsp">Signup here</a></p>
+        <p>Admin <a href="loginAdmin.jsp">Signup here</a></p>
         <p>Staff <a href="staffLogin.jsp">Signup here</a></p>
         <form action="SignupController" method="post" onsubmit="return validatePasswords();>
             <label for="username">Username:</label>
