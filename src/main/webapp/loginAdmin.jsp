@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>Login</h2>
+        <h2>Login Admin</h2>
         <form action="LoginAdmin" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
