@@ -43,7 +43,7 @@ public class StaffLoginController extends HttpServlet {
                 session.setAttribute("gender", rs.getString("gender"));
                 session.setAttribute("adminId", rs.getInt("adminId"));
 
-                response.sendRedirect("staffPage.jsp");
+                response.sendRedirect("profileStaff.jsp");
             } else {
                 // Staff ID does not exist
                 request.setAttribute("errorMessage", "Invalid Staff ID. Please try again.");
