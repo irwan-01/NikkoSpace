@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import pack.connection.AzureSqlDatabaseConnection;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -27,10 +26,10 @@ public class LoginAdmin extends HttpServlet {
         // Retrieve form data
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
+
         try (Connection con = AzureSqlDatabaseConnection.getConnection();
              PreparedStatement ps = con.prepareStatement("SELECT * FROM staff WHERE username = ? AND password = ?")) {
-            
+
             ps.setString(1, username);
             ps.setString(2, password); // Consider hashing passwords for security
 
@@ -39,7 +38,7 @@ public class LoginAdmin extends HttpServlet {
                 // Login successful
                 HttpSession session = request.getSession();
                 session.setAttribute("username", username);
-                session.setAttribute("userId", rs.getInt("userId"));
+                session.setAttribute("user_id", rs.getInt("user_id")); // Changed to user_id
                 response.sendRedirect("ProfileAdmin");
             } else {
                 // Login failed
