@@ -8,13 +8,13 @@
 </head>
 <body>
     <div class="container">
-        <h2>Welcome, <%= request.getAttribute("staffName") %>!</h2>
+        <h2>Welcome, <%= request.getAttribute("username") %>!</h2>
 
         <h3>Your Staff Profile</h3>
         <table>
             <tr>
-                <th>Full Name:</th>
-                <td><%= request.getAttribute("staffName") %></td>
+                <th>Username:</th>
+                <td><%= request.getAttribute("username") %></td>
             </tr>
             <tr>
                 <th>Email:</th>
@@ -25,17 +25,14 @@
                 <td><%= request.getAttribute("phoneNumber") %></td>
             </tr>
             <tr>
-                <th>Position:</th>
-                <td><%= request.getAttribute("position") %></td>
+                <th>Birth Date:</th>
+                <td><%= request.getAttribute("birthDate") %></td>
             </tr>
             <tr>
-                <th>Department:</th>
-                <td><%= request.getAttribute("department") %></td>
+                <th>Gender:</th>
+                <td><%= request.getAttribute("gender") %></td>
             </tr>
-            <tr>
-                <th>Hire Date:</th>
-                <td><%= request.getAttribute("hireDate") %></td>
-            </tr>
+            
         </table>
         <a href="updateStaffProfile.jsp">Update Profile</a>
         <a href="Logout.jsp">Logout</a>
