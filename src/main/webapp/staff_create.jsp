@@ -24,23 +24,9 @@
         <form action="StaffCreateController" method="POST" onsubmit="return validatePasswords();>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
-            <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required><br>
-            <label for="phoneNumber">Phone Number:</label>
-            <input type="text" id="phoneNumber" name="phoneNumber" required><br>
-            <label for="birthDate">Birth Date:</label>
-            <input type="date" id="birthDate" name="birthDate" required><br>
-            <label for="gender">Gender:</label>
-            <select id="gender" name="gender" required>
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-            </select><br>
+            <br>
             <button type="submit">Signup</button>
         </form>
         <p>Already have an account? <a href="loginAdmin.jsp">Login here</a></p>
