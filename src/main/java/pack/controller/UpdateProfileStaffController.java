@@ -45,6 +45,7 @@ public class UpdateProfileStaffController extends HttpServlet {
                     request.setAttribute("phoneNumber", rs.getString("phoneNumber"));
                     request.setAttribute("birthDate", rs.getString("birthDate"));
                     request.setAttribute("gender", rs.getString("gender"));
+                    request.setAttribute("created_at", rs.getTimestamp("created_at"));
                 }
             }
 
