@@ -84,7 +84,7 @@ public class UpdateProfileStaffController extends HttpServlet {
         return;
     }
         try (Connection con = AzureSqlDatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("UPDATE staff SET username = ?, email = ?, phoneNumber = ?, position = ?, department = ? WHERE staffId = ?")) {
+             PreparedStatement ps = con.prepareStatement("UPDATE staff SET username = ?, email = ?, phoneNumber = ?, birthDate = ?, gender = ? WHERE staffId = ?")) {
 
             ps.setString(1, username);
             ps.setString(2, email);
