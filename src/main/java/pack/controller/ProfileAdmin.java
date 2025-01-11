@@ -25,16 +25,16 @@ public class ProfileAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("userId") == null) {
+        if (session == null || session.getAttribute("user_id") == null) {
             // Redirect to login if the user is not logged in
             response.sendRedirect("loginAdmin.jsp");
             return;
         }
 
-        int userId = (int) session.getAttribute("userId");
+        int userId = (int) session.getAttribute("user_id");
 
         try (Connection con = AzureSqlDatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT * FROM staff WHERE userId = ?")) {
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM staff WHERE user_id = ?")) {
 
             ps.setInt(1, userId);
 
