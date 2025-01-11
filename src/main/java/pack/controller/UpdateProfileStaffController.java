@@ -102,10 +102,10 @@ public class UpdateProfileStaffController extends HttpServlet {
             int rowsUpdated = ps.executeUpdate();
 
             if (rowsUpdated > 0) {
-                response.sendRedirect("profile.jsp"); // Redirect to the profile page after successful update
+                response.sendRedirect("ProfileStaffController"); // Redirect to the profile page after successful update
             } else {
                 request.setAttribute("error", "Failed to update profile");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("updateProfile.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("updateProfileStaff.jsp");
                 dispatcher.forward(request, response);
             }
 
