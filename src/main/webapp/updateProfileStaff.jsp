@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h2>Update Your Profile</h2>
-
+ 
         <form action="UpdateProfileStaffController" method="POST">
             <div>
                 <label for="username">Username:</label>
