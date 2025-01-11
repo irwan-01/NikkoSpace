@@ -34,7 +34,7 @@
             </tr>
             
         </table>
-        <a href="updateStaffProfile.jsp">Update Profile</a>
+        <a href="updateProfileStaff.jsp">Update Profile</a>
         <a href="Logout.jsp">Logout</a>
     </div>
 </body>
