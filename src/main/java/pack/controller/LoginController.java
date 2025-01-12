@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
                         sessionPs.executeUpdate();
                     }
 
-                    response.sendRedirect("ProfileController");
+                    response.sendRedirect("profile.jsp");
                 } else {
                     // Invalid login
                     request.setAttribute("errorMessage", "Invalid username or password.");
