@@ -4,7 +4,7 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Signup</title>
-    <link rel="stylesheet" href="IndexPackageStyle.css">
+    <link rel="stylesheet" href="SignupPage.css">
     <script>
         function validatePasswords() {
             var password = document.getElementById("password").value.trim;
