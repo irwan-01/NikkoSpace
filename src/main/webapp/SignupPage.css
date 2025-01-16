@@ -1,3 +1,5 @@
+@charset "ISO-8859-1";
+
 /* Global Styles */
 body {
     margin: 0;
@@ -11,27 +13,36 @@ body {
 }
 
 /* Header Navigation */
+/* General Styles for the Navigation */
 nav {
     background: #ffffff;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ddd; /* Optional: adds a subtle separator */
-}
-
-.nav__logo a {
-    text-decoration: none;
-    color: #333;
-    font-size: 24px;
-    font-weight: bold;
+    border-bottom: 1px solid #ddd; /* Optional: subtle bottom border for separation */
     font-family: 'Arial', sans-serif;
 }
 
+/* Logo Styles */
+.nav__logo a {
+    text-decoration: none;
+    color: #333; /* Dark text for the logo */
+    font-size: 24px; /* Adjust font size for logo */
+    font-weight: bold;
+}
+
+/* Menu Button (For Mobile View) */
+.nav__menu__btn {
+    display: none; /* Hidden by default; used for mobile view */
+    cursor: pointer;
+}
+
+/* Navigation Links */
 .nav__links {
     list-style: none;
-    display: flex;
-    gap: 20px;
+    display: flex; /* Align links horizontally */
+    gap: 20px; /* Space between links */
     margin: 0;
     padding: 0;
 }
@@ -42,27 +53,43 @@ nav {
 
 .nav__links a {
     text-decoration: none;
-    color: #333;
+    color: #333; /* Link text color */
     font-size: 14px;
     font-weight: 500;
-    transition: color 0.3s;
+    transition: color 0.3s; /* Smooth hover effect */
 }
 
 .nav__links a:hover {
-    color: #007bff;
+    color: #007bff; /* Change color on hover */
 }
 
-/* Mobile Adjustments */
+/* Mobile View Adjustments */
 @media (max-width: 768px) {
-    nav {
-        flex-wrap: wrap;
+    .nav__menu__btn {
+        display: block; /* Show menu button in mobile view */
     }
+
     .nav__links {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
+        display: none; /* Hide navigation links by default in mobile view */
+        flex-direction: column; /* Stack links vertically */
+        background: #ffffff;
+        position: absolute;
+        top: 50px;
+        right: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .nav__links.active {
+        display: flex; /* Show navigation links when active */
+    }
+
+    .nav__links li {
+        margin-bottom: 10px;
     }
 }
+
 
 /* Signup Form */
 .container {
