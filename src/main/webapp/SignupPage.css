@@ -1,21 +1,66 @@
-/* Signup Page Styling */
+/* Global Styles */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
     background: linear-gradient(to bottom, #ffe5e5, #fdf5f5);
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
 }
 
+/* Header Navigation */
+nav {
+    background: #007bff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.nav__header {
+    display: flex;
+    align-items: center;
+}
+
+.nav__logo a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav__links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav__links li {
+    display: inline;
+}
+
+.nav__links a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.nav__links a:hover {
+    color: #d4d4d4;
+}
+
+/* Signup Form */
 .container {
     background: white;
     border-radius: 12px;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     width: 400px;
     padding: 30px;
+    margin: 50px auto;
     text-align: center;
 }
 
@@ -75,4 +120,61 @@ p a {
 
 p a:hover {
     color: #0056b3;
+}
+
+/* Footer */
+.footer {
+    background: #333;
+    color: white;
+    padding: 30px 0;
+}
+
+.footer_container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer_item {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer_logo img {
+    max-width: 150px;
+    margin-bottom: 10px;
+}
+
+.footer_p {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.footer_item_title {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.footer_list {
+    list-style: none;
+    padding: 0;
+}
+
+.footer_list_item {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.footer_bottom {
+    background: #222;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.footer_copy {
+    color: #bbb;
+    font-size: 14px;
 }
