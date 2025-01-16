@@ -12,24 +12,20 @@ body {
 
 /* Header Navigation */
 nav {
-    background: #007bff;
+    background: #ffffff;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
-}
-
-.nav__header {
-    display: flex;
-    align-items: center;
+    border-bottom: 1px solid #ddd; /* Optional: adds a subtle separator */
 }
 
 .nav__logo a {
     text-decoration: none;
-    color: white;
-    font-size: 20px;
+    color: #333;
+    font-size: 24px;
     font-weight: bold;
+    font-family: 'Arial', sans-serif;
 }
 
 .nav__links {
@@ -46,13 +42,26 @@ nav {
 
 .nav__links a {
     text-decoration: none;
-    color: white;
+    color: #333;
     font-size: 14px;
+    font-weight: 500;
     transition: color 0.3s;
 }
 
 .nav__links a:hover {
-    color: #d4d4d4;
+    color: #007bff;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    nav {
+        flex-wrap: wrap;
+    }
+    .nav__links {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
 }
 
 /* Signup Form */
